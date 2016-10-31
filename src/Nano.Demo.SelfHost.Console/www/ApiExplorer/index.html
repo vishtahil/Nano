@@ -490,12 +490,11 @@ body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line
                 html = replaceAllOccurrences(html, '{{TypeName}}',param.Type);
                 html = replaceAllOccurrences(html, '{{TypeModel}}',renderModelType(param.Type,models));
                 html = replaceAllOccurrences(html, '{{JsonModel}}',JSON.stringify(JSON.parse(modelJsonString), undefined, 4));
-                attachModelTabContainerEvent(txtAreaId,modelJsonString);
+                attachModelTabContainerEvent(txtAreaId, modelJsonString);
+                break;
             } else {
                 html = replaceAllOccurrences(html, '{{ModelTabContainer}}', "");
             }
-
-            break;
         }
         
         if (data.InputParameters.length == 0) {
@@ -1638,15 +1637,18 @@ body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line
     //sets "Show Generated URL" buttons to show/hide URLs, changes text
     function clickGenerateLinkButton(btn) {
         $(btn).next().toggle();
-
+        var $modelContainer = $(btn).closest(".tableContainer").next(".modelContainer");
+      
         if ($(btn).val() == "Show Generated Link") {
+            $modelContainer.hide();
             $(btn).val("Hide Generated Link");
-            if ($(".modelContainer").html().length) { //if custom model then limit the width of show generated link
+            if ($modelContainer.html().length) { //if custom model then limit the width of show generated link
                 $(btn).next().css("max-width", "400px");
             }
         }
         else {
             $(btn).val("Show Generated Link");
+            $modelContainer.show();
         }
     }
 
